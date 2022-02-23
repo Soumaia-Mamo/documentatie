@@ -1,0 +1,19 @@
+<?php
+
+
+  class lezen {
+>>         function doAction(string $bestandNaam){
+
+>>            $return = [] ;
+
+              $fn = fopen(__DIR__ . "/bestandLezen.txt","r");
+
+                  while(! feof($fn))  {
+
+                        $result = fgets($fn);
+                        return $result;
+                  }
+
+               fclose($fn);
+           }
+  }

@@ -1,0 +1,62 @@
+
+
+  class searchRepalceVariabels {
+
+     function doAction(string $bestandNaam){
+>>      $return = [] ;
+        $bestand = file_get_contents(__DIR__ . '/' . $bestandNaam);
+        return $bestand;
+     }
+
+
+
+    function doActionMultiple(string $oudeBestand, string $oudeString, string $nieuweString, string $nieuweBestand){
+       $oudebestand    = file_get_contents(__DIR__ . '/' . $oudeBestand);
+       $nieuwebestand  = __DIR__ . '/' . $nieuweBestand;
+       $replaceString        = str_replace($oudeString, $nieuweString, $oudebestand);
+       file_put_contents($nieuwebestand, $replaceString);
+       echo $replaceString; die();
+       return $replaceString;
+    }
+
+
+    function doActionMultipleArray(array $replace){
+       $folder = (__DIR__.'/soumaia/');
+       if ($dir = opendir($folder)) {
+         while(($path_to_file   = readdir($dir)) !== false ) {
+              if(!is_dir($folder.$path_to_file)){
+                $file_contents   = file_get_contents($folder.$path_to_file);
+                $new_file        = $path_to_file.'.swp' ;
+                $keys            = array_keys($replace);
+                $values          = array_values($replace);
+                $replace_contents= str_replace($keys, $values, $file_contents);
+                file_put_contents($new_file, $replace_contents);
+              }
+         }
+         return $replace_contents;
+         closedir($dir);
+       }
+    }
+
+    function doActionVariabels(){
+       $folder = (__DIR__.'/config/');
+       if ($dir = opendir($folder)) {
+          while(($path_to_file  = readdir($dir)) !== false ) {
+               if(!is_dir($folder.$path_to_file)){
+                 $search = 'xxx_';
+                 $lines  = file($folder.$path_to_file);
+>>               $found  = false;
+                 foreach($lines as $line){
+                        if(strpos($line, $search) !== false){
+>>                         $found = true;
+                           echo $line." \n ";
+                        }
+                 }
+               }
+          }
+        closedir($dir);
+       }
+    }
+  }
+
+  ?>
